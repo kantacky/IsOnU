@@ -1,5 +1,6 @@
 import FirebaseCore
 import SwiftUI
+import ShakingClient
 
 public struct AppRoot: App {
     public init() {
@@ -8,7 +9,10 @@ public struct AppRoot: App {
 
     public var body: some Scene {
         WindowGroup {
-            Text("!s on U")
+            TestView(store: .init(initialState: TestReducer.State(), reducer: {
+                TestReducer()
+            }))
+//            Text("!s on U")
         }
     }
 }
