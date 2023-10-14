@@ -11,19 +11,24 @@ public struct TestView: View {
     }
 
     struct ViewState: Equatable {
-        let test: Bool
+        let isShaking: Bool
         init(state: TestReducer.State) {
-            test = state.test
+            isShaking = state.isShaking
         }
     }
 
     public var body: some View {
-        Text("TestView")
-            .onAppear {
-                viewStore.send(.onAppear)
-            }
-            .onChange(of: viewStore.test) { oldValue, newValue in
-                print(oldValue, newValue)
-            }
+        if viewStore.isShaking {
+            Text("振ってください")
+        } else {
+            Text("TestView")
+                .onAppear {
+                    viewStore.send(.onAppear)
+                }
+                .onChange(of: viewStore.isShaking) { oldValue, newValue in
+                    print(oldValue, newValue)
+                }
+        }
+
     }
 }

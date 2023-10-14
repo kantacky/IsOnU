@@ -2,11 +2,16 @@ import ComposableArchitecture
 import Dependencies
 import CoreMotion
 
+public struct EmptyStruct: Equatable, Hashable {
+    public init() {}
+}
+
+
 public struct TestReducer: Reducer {
     // MARK: - State
     public struct State: Equatable {
-        let motionManager = CMMotionManager()
-        var test = false
+        let motionManager: CMMotionManager = .init()
+        var isShaking = false
         public init() {}
     }
 
@@ -47,8 +52,8 @@ public struct TestReducer: Reducer {
                     )
                 }
 
-            case let .testResponse(.success(test)):
-                state.test = test
+            case let .testResponse(.success(isShaking)):
+                state.isShaking = isShaking
                 return .none
 
             case let .testResponse(.failure):
@@ -57,7 +62,7 @@ public struct TestReducer: Reducer {
 
             case .onDisappear:
                 return .run { [state] send in
-                   try await shakingClient.stopShaking(state.motionManager)
+                    try await shakingClient.stopShaking(state.motionManager)
                 }
             }
         }
