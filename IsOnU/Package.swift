@@ -14,6 +14,7 @@ let package = Package(
         .library(name: "FirebaseError", targets: ["FirebaseError"]),
         .library(name: "FirestoreClient", targets: ["FirestoreClient"]),
         .library(name: "Infrastructure", targets: ["Infrastructure"]),
+        .library(name: "Speaker", targets: ["Speaker"]),
         .library(name: "ViewComponents", targets: ["ViewComponents"]),
     ],
     dependencies: [
@@ -87,6 +88,14 @@ let package = Package(
         .testTarget(
             name: "IsOnUTests",
             dependencies: ["IsOnU"]
+        ),
+        .target(
+            name: "Speaker",
+            dependencies: [
+                "Models",
+                "ViewComponents",
+                .composableArchitecture,
+            ]
         ),
         .target(
             name: "ViewComponents",
