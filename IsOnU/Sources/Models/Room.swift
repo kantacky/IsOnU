@@ -11,7 +11,17 @@ public struct Room: Identifiable, Equatable {
     var timerSeconds: Int
     var timerStartedAt: Date?
 
-    public init(id: UUID, password: String? = nil, displayName: String, speaker: User, activeMembers: [User], activeAudiences: [User], themeColor: ThemeColor? = nil, timerSeconds: Int, timerStartedAt: Date? = nil) {
+    public init(
+        id: UUID,
+        password: String? = nil,
+        displayName: String,
+        speaker: User,
+        activeMembers: [User],
+        activeAudiences: [User],
+        themeColor: ThemeColor? = nil,
+        timerSeconds: Int,
+        timerStartedAt: Date? = nil
+    ) {
         self.id = id
         self.password = password
         self.displayName = displayName
