@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Room: Identifiable, Equatable {
+public struct Room: Identifiable, Equatable, Codable {
     public let id: UUID
     var password: String?
     var displayName: String
