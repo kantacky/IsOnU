@@ -1,0 +1,3 @@
+import IsOnU
+
+AppRoot.main()
