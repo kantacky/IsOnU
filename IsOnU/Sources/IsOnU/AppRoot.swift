@@ -8,7 +8,12 @@ public struct AppRoot: App {
 
     public var body: some Scene {
         WindowGroup {
-            Text("!s on U")
+            CoreView()
+                .onOpenURL(perform: { url in
+#if DEBUG
+                    print(url.absoluteString)
+#endif
+                })
         }
     }
 }
