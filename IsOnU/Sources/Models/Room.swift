@@ -41,7 +41,7 @@ extension Room {
         speaker: User.example0,
         activeMembers: User.examples1,
         activeAudiences: User.examples2,
-        themeColor: .red,
+        themeColor: .pink,
         timerSeconds: 300
     )
 }

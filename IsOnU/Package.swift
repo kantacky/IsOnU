@@ -14,6 +14,7 @@ let package = Package(
         .library(name: "FirebaseError", targets: ["FirebaseError"]),
         .library(name: "FirestoreClient", targets: ["FirestoreClient"]),
         .library(name: "Infrastructure", targets: ["Infrastructure"]),
+        .library(name: "ViewComponents", targets: ["ViewComponents"]),
     ],
     dependencies: [
         .package(url: "https://github.com/firebase/firebase-ios-sdk", .upToNextMajor(from: "10.16.0")),
@@ -80,6 +81,13 @@ let package = Package(
         .testTarget(
             name: "IsOnUTests",
             dependencies: ["IsOnU"]
+        ),
+        .target(
+            name: "ViewComponents",
+            dependencies: [
+                "Assets",
+                "Models",
+            ]
         ),
     ]
 )
