@@ -1,0 +1,24 @@
+name: iOS
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_15.0.app
+
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        env:
+          platform: ${{ 'iOS Simulator' }}
+          device: ${{ 'iPhone 15 Pro Max' }}
+          os: ${{ '17.0' }}
+        run: |
+          xcodebuild test -workspace IsOnU.xcworkspace -scheme IsOnUTests -destination "platform=$platform,name=$device,OS=$os"
+
