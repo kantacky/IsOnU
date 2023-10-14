@@ -7,13 +7,15 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [.iOS(.v17)],
     products: [
-        .library(name: "Assets", targets: ["Assets"]),
-        .library(name: "Models", targets: ["Models"]),
-        .library(name: "IsOnU", targets: ["IsOnU"]),
         .library(name: "AnonymousClient", targets: ["AnonymousClient"]),
+        .library(name: "Assets", targets: ["Assets"]),
+        .library(name: "Audience", targets: ["Audience"]),
         .library(name: "FirebaseError", targets: ["FirebaseError"]),
         .library(name: "FirestoreClient", targets: ["FirestoreClient"]),
         .library(name: "Infrastructure", targets: ["Infrastructure"]),
+        .library(name: "IsOnU", targets: ["IsOnU"]),
+        .library(name: "Member", targets: ["Member"]),
+        .library(name: "Models", targets: ["Models"]),
         .library(name: "Speaker", targets: ["Speaker"]),
         .library(name: "ViewComponents", targets: ["ViewComponents"]),
     ],
@@ -38,6 +40,14 @@ let package = Package(
             name: "Assets",
             dependencies: [
                 .apngKit,
+            ]
+        ),
+        .target(
+            name: "Audience",
+            dependencies: [
+                "Models",
+                "ViewComponents",
+                .composableArchitecture,
             ]
         ),
         .target(
@@ -68,6 +78,14 @@ let package = Package(
             ]
         ),
         .target(
+            name: "Member",
+            dependencies: [
+                "Models",
+                "ViewComponents",
+                .composableArchitecture,
+            ]
+        ),
+        .target(
             name: "Models",
             dependencies: [
                 "Assets",
@@ -77,6 +95,9 @@ let package = Package(
             name: "IsOnU",
             dependencies: [
                 "Assets",
+                "Audience",
+                "Member",
+                "Speaker",
                 "ViewComponents",
                 .composableArchitecture,
                 .firebaseAuth,

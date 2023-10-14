@@ -2,24 +2,24 @@ import Foundation
 
 public struct Room: Identifiable, Equatable, Codable {
     public let id: UUID
-    var password: String?
-    var displayName: String
-    var speaker: User
-    var activeMembers: [User]
-    var activeAudiences: [User]
-    var themeColor: ThemeColor?
-    var timerSeconds: Int
-    var timerStartedAt: Date?
+    public var password: String?
+    public var displayName: String
+    public var speaker: User
+    public var activeMembers: [User]
+    public var activeAudiences: [User]
+    public var themeColor: ThemeColor?
+    public var timerSeconds: Int
+    public var timerStartedAt: Date?
 
     public init(
-        id: UUID,
+        id: UUID = .init(),
         password: String? = nil,
-        displayName: String,
+        displayName: String = "",
         speaker: User,
-        activeMembers: [User],
-        activeAudiences: [User],
+        activeMembers: [User] = [],
+        activeAudiences: [User] = [],
         themeColor: ThemeColor? = nil,
-        timerSeconds: Int,
+        timerSeconds: Int = 60 * 15,
         timerStartedAt: Date? = nil
     ) {
         self.id = id
@@ -34,7 +34,7 @@ public struct Room: Identifiable, Equatable, Codable {
 }
 
 #if DEBUG
-extension Room {
+public extension Room {
     static let example0: Self = .init(
         id: .init(),
         displayName: "SpaJam 2023 第6回予選 トロ寿司",

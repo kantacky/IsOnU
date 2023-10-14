@@ -14,32 +14,36 @@ public struct RoomRegistrationView: View {
     }
 
     public var body: some View {
-        ZStack {
-            VStack(spacing: 16) {
-                Text("テーマカラー")
-                    .font(.system(size: 22))
-                    .bold()
+        IfLetStore(store.scope(state: \.$roomSettings, action: { .roomSettings($0) })) { store in
+            RoomSettingsView(store: store)
+        } else: {
+            ZStack {
+                VStack(spacing: 16) {
+                    Text("テーマカラー")
+                        .font(.system(size: 22))
+                        .bold()
 
-                HStack(spacing: 48) {
-                    ForEach(ThemeColor.allCases) { color in
-                        ThemeColorBall(color, isSelected: self.viewStore.themeColor == color)
-                            .onTapGesture {
-                                self.viewStore.send(.onThemeColorChanged(color), animation: .smooth(duration: 0.3))
-                            }
+                    HStack(spacing: 48) {
+                        ForEach(ThemeColor.allCases) { color in
+                            ThemeColorBall(color, isSelected: self.viewStore.themeColor == color)
+                                .onTapGesture {
+                                    self.viewStore.send(.onThemeColorChanged(color), animation: .smooth(duration: 0.3))
+                                }
+                        }
                     }
                 }
-            }
 
-            VStack {
-                Spacer()
+                VStack {
+                    Spacer()
 
-                OriginalButton("ルームをつくる") {
-                    self.viewStore.send(.onCreateRoomButtonTapped)
+                    OriginalButton("ルームをつくる") {
+                        self.viewStore.send(.onCreateRoomButtonTapped)
+                    }
+                    .frame(maxWidth: 300)
+
+                    Spacer()
+                        .frame(height: 40)
                 }
-                .frame(maxWidth: 300)
-
-                Spacer()
-                    .frame(height: 40)
             }
         }
     }

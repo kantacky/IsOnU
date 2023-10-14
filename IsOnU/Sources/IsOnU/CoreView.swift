@@ -1,5 +1,8 @@
 import Assets
+import Audience
 import ComposableArchitecture
+import Member
+import Speaker
 import SwiftUI
 import ViewComponents
 
@@ -14,8 +17,23 @@ struct CoreView: View {
     }
 
     var body: some View {
-        VStack {
-            TimerTimePicker(minutes: 15)
+        SwitchStore(self.store) { state in
+            switch state {
+            case .speaker:
+                CaseLet(/Reducer.State.speaker, action: Reducer.Action.speaker) { store in
+                    SpeakerView(store: store)
+                }
+
+            case .member:
+                CaseLet(/Reducer.State.member, action: Reducer.Action.member) { store in
+                    MemberView(store: store)
+                }
+
+            case .audience:
+                CaseLet(/Reducer.State.audience, action: Reducer.Action.audience) { store in
+                    AudienceView(store: store)
+                }
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(ColorAssets.background)

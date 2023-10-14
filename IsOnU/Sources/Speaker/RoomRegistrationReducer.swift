@@ -5,6 +5,7 @@ public struct RoomRegistrationReducer: Reducer {
     // MARK: - State
     public struct State: Equatable {
         var themeColor: ThemeColor
+        @PresentationState var roomSettings: RoomSettingsReducer.State?
 
         public init() {
             themeColor = .pink
@@ -15,6 +16,7 @@ public struct RoomRegistrationReducer: Reducer {
     public enum Action: Equatable {
         case onThemeColorChanged(ThemeColor)
         case onCreateRoomButtonTapped
+        case roomSettings(PresentationAction<RoomSettingsReducer.Action>)
     }
 
     // MARK: - Dependencies
@@ -30,8 +32,15 @@ public struct RoomRegistrationReducer: Reducer {
                 return .none
 
             case .onCreateRoomButtonTapped:
+                state.roomSettings = .init(room: .init(speaker: .example0))
+                return .none
+
+            case .roomSettings:
                 return .none
             }
+        }
+        .ifLet(\.$roomSettings, action: /Action.roomSettings) {
+            RoomSettingsReducer()
         }
     }
 }

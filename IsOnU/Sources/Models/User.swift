@@ -9,7 +9,7 @@ public struct User: Identifiable, Equatable, Codable {
 }
 
 #if DEBUG
-extension User {
+public extension User {
     static let example0: Self = .init(id: .init())
     static let example1: Self = .init(id: .init())
     static let example2: Self = .init(id: .init())
