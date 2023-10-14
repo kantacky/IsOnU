@@ -9,6 +9,8 @@ let package = Package(
     products: [
         .library(name: "Models", targets: ["Models"]),
         .library(name: "IsOnU", targets: ["IsOnU"]),
+        .library(name: "AnonymousClient", targets: ["AnonymousClient"]),
+        .library(name: "FirebaseError", targets: ["FirebaseError"]),
     ],
     dependencies: [
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.16.0")),
@@ -28,6 +30,21 @@ let package = Package(
             ],
             resources: [
                 .process("./GoogleService-Info.plist"),
+            ]
+        ),
+        .target(
+            name: "AnonymousClient",
+            dependencies: [
+                "FirebaseError",
+                .dependencies,
+                .firebaseAuth
+            ]
+        ),
+        .target(
+            name: "FirebaseError",
+            dependencies: [
+                .firebaseAuth,
+                .firebaseFirestore
             ]
         ),
         .testTarget(
