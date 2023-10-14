@@ -11,7 +11,9 @@ public struct TestView: View {
     }
 
     struct ViewState: Equatable {
+        let test: Bool
         init(state: TestReducer.State) {
+            test = state.test
         }
     }
 
@@ -19,6 +21,9 @@ public struct TestView: View {
         Text("TestView")
             .onAppear {
                 viewStore.send(.onAppear)
+            }
+            .onChange(of: viewStore.test) { oldValue, newValue in
+                print(oldValue, newValue)
             }
     }
 }

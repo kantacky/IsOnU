@@ -11,7 +11,8 @@ let package = Package(
         .library(name: "IsOnU", targets: ["IsOnU"]),
         .library(name: "AnonymousClient", targets: ["AnonymousClient"]),
         .library(name: "FirebaseError", targets: ["FirebaseError"]),
-        .library(name: "ShakingClient", targets: ["ShakingClient"])
+        .library(name: "ShakingClient", targets: ["ShakingClient"]),
+        .library(name: "PersistableTimerClient", targets: ["PersistableTimerClient"])
     ],
     dependencies: [
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.16.0")),
@@ -54,6 +55,13 @@ let package = Package(
             dependencies: [
                 .composableArchitecture,
                 .dependencies
+            ]
+        ),
+        .target(
+            name: "PersistableTimerClient",
+            dependencies: [
+                .composableArchitecture,
+                .dependencies,
             ]
         ),
         .testTarget(

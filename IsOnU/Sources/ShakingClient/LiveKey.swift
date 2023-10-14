@@ -4,9 +4,10 @@ import CoreMotion
 
 public extension ShakingClient {
     static let live: ShakingClient = Self(
-        startShaking: { manager in
+        startShaking: { param in
             try await withCheckedThrowingContinuation { configuration in
-                manager.startDeviceMotionUpdates(to: .main) { data, error in
+                param.coreManager.deviceMotionUpdateInterval = 0.5
+                param.coreManager.startDeviceMotionUpdates(to: .main) { data, error in
                     // 早期リターンでもいいかも
                     if let data {
                         let threshold: Double = 0.1
