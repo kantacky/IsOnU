@@ -2,7 +2,7 @@ import Assets
 import Foundation
 import SwiftUI
 
-public enum ThemeColor: Equatable, Codable {
+public enum ThemeColor: Int, Identifiable, Equatable, Codable, CaseIterable {
     case yellow
     case pink
     case blue
@@ -19,4 +19,6 @@ public enum ThemeColor: Equatable, Codable {
             return ColorAssets.blue
         }
     }
+
+    public var id: Self { self }
 }

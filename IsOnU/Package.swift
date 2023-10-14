@@ -66,7 +66,12 @@ let package = Package(
                 .dependencies,
             ]
         ),
-        .target(name: "Models"),
+        .target(
+            name: "Models",
+            dependencies: [
+                "Assets",
+            ]
+        ),
         .target(
             name: "IsOnU",
             dependencies: [
