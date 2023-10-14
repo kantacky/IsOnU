@@ -1,29 +1,24 @@
+import Assets
 import Foundation
 import SwiftUI
 
-public enum ThemeColor: Equatable, Codable {
-    case red
-    case blue
-    case green
+public enum ThemeColor: Int, Identifiable, Equatable, Codable, CaseIterable {
     case yellow
-    case orange
+    case pink
+    case blue
 
-    var color: Color {
+    public var color: Color {
         switch self {
-        case .red:
-            return .red
+        case .yellow:
+            return ColorAssets.yellow
+
+        case .pink:
+            return ColorAssets.pink
 
         case .blue:
-            return .blue
-
-        case .green:
-            return .green
-
-        case .yellow:
-            return .yellow
-
-        case .orange:
-            return .orange
+            return ColorAssets.blue
         }
     }
+
+    public var id: Self { self }
 }

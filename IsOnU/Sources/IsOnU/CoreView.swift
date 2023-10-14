@@ -1,6 +1,7 @@
 import Assets
 import ComposableArchitecture
 import SwiftUI
+import ViewComponents
 
 struct CoreView: View {
     typealias Reducer = CoreReducer
@@ -13,19 +14,21 @@ struct CoreView: View {
     }
 
     var body: some View {
-        Text("Hello, World!")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(ColorAssets.background)
-            .foregroundStyle(ColorAssets.primaryFont)
-            .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
-                guard let url = userActivity.webpageURL else {
-                    return
-                }
-                self.viewStore.send(.onOpenURL(url))
+        VStack {
+            TimerTimePicker(minutes: 15)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(ColorAssets.background)
+        .foregroundStyle(ColorAssets.primaryFont)
+        .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
+            guard let url = userActivity.webpageURL else {
+                return
             }
-            .onOpenURL { url in
-                self.viewStore.send(.onOpenURL(url))
-            }
+            self.viewStore.send(.onOpenURL(url))
+        }
+        .onOpenURL { url in
+            self.viewStore.send(.onOpenURL(url))
+        }
     }
 }
 

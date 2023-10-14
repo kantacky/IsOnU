@@ -14,13 +14,15 @@ let package = Package(
         .library(name: "FirebaseError", targets: ["FirebaseError"]),
         .library(name: "FirestoreClient", targets: ["FirestoreClient"]),
         .library(name: "Infrastructure", targets: ["Infrastructure"]),
+        .library(name: "ViewComponents", targets: ["ViewComponents"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.16.0")),
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", exact: "1.2.0"),
-        .package(url: "https://github.com/apple/swift-algorithms.git", exact: "1.1.0"),
-        .package(url: "https://github.com/pointfreeco/swift-case-paths", exact: "1.0.0"),
-        .package(url: "https://github.com/pointfreeco/swift-dependencies", exact: "1.0.0"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk", .upToNextMajor(from: "10.16.0")),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/apple/swift-algorithms.git", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/pointfreeco/swift-case-paths", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/onevcat/APNGKit", .upToNextMajor(from: "2.0.0")),
     ],
     targets: [
         .target(
@@ -31,7 +33,12 @@ let package = Package(
                 .firebaseAuth
             ]
         ),
-        .target(name: "Assets"),
+        .target(
+            name: "Assets",
+            dependencies: [
+                .apngKit,
+            ]
+        ),
         .target(
             name: "FirebaseError",
             dependencies: [
@@ -59,11 +66,17 @@ let package = Package(
                 .dependencies,
             ]
         ),
-        .target(name: "Models"),
+        .target(
+            name: "Models",
+            dependencies: [
+                "Assets",
+            ]
+        ),
         .target(
             name: "IsOnU",
             dependencies: [
                 "Assets",
+                "ViewComponents",
                 .composableArchitecture,
                 .firebaseAuth,
             ],
@@ -75,11 +88,19 @@ let package = Package(
             name: "IsOnUTests",
             dependencies: ["IsOnU"]
         ),
+        .target(
+            name: "ViewComponents",
+            dependencies: [
+                "Assets",
+                "Models",
+            ]
+        ),
     ]
 )
 
 extension Target.Dependency {
     static var algorithms: Self { .product(name: "Algorithms", package: "swift-algorithms") }
+    static var apngKit: Self { .product(name: "APNGKit", package: "APNGKit") }
     static var composableArchitecture: Self { .product(name: "ComposableArchitecture", package: "swift-composable-architecture") }
     static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
     static var firebaseAuth: Self { .product(name: "FirebaseAuth", package: "firebase-ios-sdk") }
