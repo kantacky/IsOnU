@@ -9,11 +9,6 @@ public struct AppRoot: App {
     public var body: some Scene {
         WindowGroup {
             CoreView()
-                .onOpenURL(perform: { url in
-#if DEBUG
-                    print(url.absoluteString)
-#endif
-                })
         }
     }
 }
