@@ -4,6 +4,8 @@ import Foundation
 public struct CoreReducer: Reducer {
     // MARK: - State
     public struct State: Equatable {
+        var url: URL?
+
         public init() {}
     }
 
@@ -21,6 +23,7 @@ public struct CoreReducer: Reducer {
         Reduce { state, action in
             switch action {
             case let .onOpenURL(url):
+                state.url = url
                 return .none
             }
         }
