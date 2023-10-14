@@ -76,6 +76,7 @@ let package = Package(
             name: "IsOnU",
             dependencies: [
                 "Assets",
+                "ViewComponents",
                 .composableArchitecture,
                 .firebaseAuth,
             ],

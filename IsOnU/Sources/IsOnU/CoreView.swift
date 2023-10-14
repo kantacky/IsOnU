@@ -1,6 +1,7 @@
 import Assets
 import ComposableArchitecture
 import SwiftUI
+import ViewComponents
 
 struct CoreView: View {
     typealias Reducer = CoreReducer
@@ -14,7 +15,7 @@ struct CoreView: View {
 
     var body: some View {
         VStack {
-            Text("Hello, World!")
+            TimerTimePicker(minutes: 15)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(ColorAssets.background)
