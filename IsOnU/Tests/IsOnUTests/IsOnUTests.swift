@@ -1,12 +1,19 @@
+import ComposableArchitecture
+import Foundation
 import XCTest
 @testable import IsOnU
 
+@MainActor
 final class IsOnUTests: XCTestCase {
-    func testExample() throws {
-        // XCTest Documentation
-        // https://developer.apple.com/documentation/xctest
+    func testOnOpenURL() async {
+        let store: TestStoreOf<CoreReducer> = TestStore(initialState: CoreReducer.State(), reducer: { CoreReducer() })
 
-        // Defining Test Cases and Test Methods
-        // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
+        let roomId: UUID = .init()
+        let token: UUID = .init()
+        let url: URL = .init(string: "https://isonu.kantacky.com/rooms/\(roomId)?token=\(token)")!
+
+        await store.send(.onOpenURL(url)) {
+            $0.url = url
+        }
     }
 }

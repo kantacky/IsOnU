@@ -3,7 +3,7 @@
     "details": [
       {
         "appIDs": [ "4YP7SQBLYV.com.kantacky.IsOnU" ],
-        "components": [ "/rooms/*" ]
+        "components": [ "/" ]
       }
     ]
   }
