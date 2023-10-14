@@ -7,12 +7,16 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [.iOS(.v17)],
     products: [
+        .library(name: "Models", targets: ["Models"]),
         .library(name: "IsOnU", targets: ["IsOnU"]),
     ],
     dependencies: [
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.16.0")),
     ],
     targets: [
+        .target(
+            name: "Models"
+        ),
         .target(
             name: "IsOnU",
             dependencies: [
