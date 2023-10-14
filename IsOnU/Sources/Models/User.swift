@@ -1,6 +1,6 @@
 import Foundation
 
-public struct User: Identifiable, Equatable {
+public struct User: Identifiable, Equatable, Codable {
     public let id: UUID
 
     public init(id: UUID) {

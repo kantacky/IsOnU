@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-public enum ThemeColor: Equatable {
+public enum ThemeColor: Equatable, Codable {
     case red
     case blue
     case green

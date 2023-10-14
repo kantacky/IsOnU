@@ -11,6 +11,8 @@ let package = Package(
         .library(name: "IsOnU", targets: ["IsOnU"]),
         .library(name: "AnonymousClient", targets: ["AnonymousClient"]),
         .library(name: "FirebaseError", targets: ["FirebaseError"]),
+        .library(name: "FirestoreClient", targets: ["FirestoreClient"]),
+        .library(name: "Infrastructure", targets: ["Infrastructure"]),
     ],
     dependencies: [
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.16.0")),
@@ -31,8 +33,28 @@ let package = Package(
         .target(
             name: "FirebaseError",
             dependencies: [
-                .firebaseAuth,
-                .firebaseFirestore
+                .firebaseFirestore,
+                .dependencies,
+                .composableArchitecture,
+            ]
+        ),
+        .target(
+            name: "FirestoreClient",
+            dependencies: [
+                "Models",
+                .firebaseFirestore,
+                .dependencies,
+                .composableArchitecture,
+            ]
+        ),
+        .target(
+            name: "Infrastructure",
+            dependencies: [
+                "Models",
+                "FirestoreClient",
+                .firebaseFirestore,
+                .firebaseFirestoreSwift,
+                .dependencies,
             ]
         ),
         .target(
@@ -61,4 +83,5 @@ extension Target.Dependency {
     static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
     static var firebaseAuth: Self { .product(name: "FirebaseAuth", package: "firebase-ios-sdk") }
     static var firebaseFirestore: Self { .product(name: "FirebaseFirestore", package: "firebase-ios-sdk") }
+    static var firebaseFirestoreSwift: Self { .product(name: "FirebaseFirestoreSwift", package: "firebase-ios-sdk") }
 }
