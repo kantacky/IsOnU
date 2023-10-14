@@ -7,6 +7,7 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [.iOS(.v17)],
     products: [
+        .library(name: "Assets", targets: ["Assets"]),
         .library(name: "Models", targets: ["Models"]),
         .library(name: "IsOnU", targets: ["IsOnU"]),
         .library(name: "AnonymousClient", targets: ["AnonymousClient"]),
@@ -28,6 +29,7 @@ let package = Package(
                 .firebaseAuth
             ]
         ),
+        .target(name: "Assets"),
         .target(
             name: "FirebaseError",
             dependencies: [
@@ -35,12 +37,11 @@ let package = Package(
                 .firebaseFirestore
             ]
         ),
-        .target(
-            name: "Models"
-        ),
+        .target(name: "Models"),
         .target(
             name: "IsOnU",
             dependencies: [
+                "Assets",
                 .composableArchitecture,
                 .firebaseAuth,
             ],
