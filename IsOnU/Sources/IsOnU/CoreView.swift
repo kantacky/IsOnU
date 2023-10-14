@@ -1,29 +1,35 @@
+import ComposableArchitecture
 import SwiftUI
 
 struct CoreView: View {
-    @State private var url: URL?
+    typealias Reducer = CoreReducer
+    private let store: StoreOf<Reducer>
+    @StateObject private var viewStore: ViewStoreOf<Reducer>
 
-    public init() {}
+    public init(store: StoreOf<Reducer>) {
+        self.store = store
+        self._viewStore = .init(wrappedValue: ViewStore(store, observe: { $0 }))
+    }
 
     var body: some View {
         VStack {
             Text("Hello, World!")
-            if let url {
-                Text("From \(url.absoluteString)")
-            }
         }
         .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
             guard let url = userActivity.webpageURL else {
                 return
             }
-            self.url = url
+            self.viewStore.send(.onOpenURL(url))
         }
         .onOpenURL { url in
-            self.url = url
+            self.viewStore.send(.onOpenURL(url))
         }
     }
 }
 
 #Preview {
-    CoreView()
+    CoreView(store: Store(
+        initialState: CoreView.Reducer.State(),
+        reducer: { CoreView.Reducer() }
+    ))
 }

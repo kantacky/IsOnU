@@ -21,18 +21,6 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Models"
-        ),
-        .target(
-            name: "IsOnU",
-            dependencies: [
-                .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
-            ],
-            resources: [
-                .process("./GoogleService-Info.plist"),
-            ]
-        ),
-        .target(
             name: "AnonymousClient",
             dependencies: [
                 "FirebaseError",
@@ -47,6 +35,19 @@ let package = Package(
                 .firebaseFirestore
             ]
         ),
+        .target(
+            name: "Models"
+        ),
+        .target(
+            name: "IsOnU",
+            dependencies: [
+                .composableArchitecture,
+                .firebaseAuth,
+            ],
+            resources: [
+                .process("./GoogleService-Info.plist"),
+            ]
+        ),
         .testTarget(
             name: "IsOnUTests",
             dependencies: ["IsOnU"]
@@ -55,9 +56,9 @@ let package = Package(
 )
 
 extension Target.Dependency {
-    static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
-    static var composableArchitecture: Self { .product(name: "ComposableArchitecture", package: "swift-composable-architecture") }
-    static var firebaseFirestore: Self { .product(name: "FirebaseFirestore", package: "firebase-ios-sdk") }
-    static var firebaseAuth: Self { .product(name: "FirebaseAuth", package: "firebase-ios-sdk") }
     static var algorithms: Self { .product(name: "Algorithms", package: "swift-algorithms") }
+    static var composableArchitecture: Self { .product(name: "ComposableArchitecture", package: "swift-composable-architecture") }
+    static var dependencies: Self { .product(name: "Dependencies", package: "swift-dependencies") }
+    static var firebaseAuth: Self { .product(name: "FirebaseAuth", package: "firebase-ios-sdk") }
+    static var firebaseFirestore: Self { .product(name: "FirebaseFirestore", package: "firebase-ios-sdk") }
 }
