@@ -13,15 +13,16 @@ import ComposableArchitecture
 
 public struct FirestoreClient {
     public var createRoom: @Sendable (Room) async throws -> Void
-    public var addUser: @Sendable (_ roomID: String, _ userData: User) async throws -> Void
+    public var addUser: @Sendable (AddUserParam) async throws -> Void
     public var getRoomData: @Sendable (_ roomID: String) async throws -> Room
     public var getUsers: @Sendable (_ roomID: String) async throws -> [User]
 
     public init(
-        createRoom: @Sendable @escaping (Room) async throws -> Void,
+        createRoom: @Sendable @escaping (
+            Room
+        ) async throws -> Void,
         addUser: @Sendable @escaping (
-            _ roomID: String,
-            _ userData: User
+            AddUserParam
         ) async throws -> Void,
         getRoomData: @Sendable @escaping (
             _ roomID: String
@@ -34,6 +35,18 @@ public struct FirestoreClient {
         self.addUser = addUser
         self.getRoomData = getRoomData
         self.getUsers = getUsers
+    }
+}
+
+public extension FirestoreClient {
+    struct AddUserParam {
+        let roomId: String
+        let userData: User
+
+        public init(roomId: String, userData: User) {
+            self.roomId = roomId
+            self.userData = userData
+        }
     }
 }
 
