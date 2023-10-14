@@ -1,3 +1,4 @@
+import Assets
 import ComposableArchitecture
 import SwiftUI
 
@@ -12,18 +13,19 @@ struct CoreView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("Hello, World!")
-        }
-        .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
-            guard let url = userActivity.webpageURL else {
-                return
+        Text("Hello, World!")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(ColorAssets.background)
+            .foregroundStyle(ColorAssets.primaryFont)
+            .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
+                guard let url = userActivity.webpageURL else {
+                    return
+                }
+                self.viewStore.send(.onOpenURL(url))
             }
-            self.viewStore.send(.onOpenURL(url))
-        }
-        .onOpenURL { url in
-            self.viewStore.send(.onOpenURL(url))
-        }
+            .onOpenURL { url in
+                self.viewStore.send(.onOpenURL(url))
+            }
     }
 }
 
