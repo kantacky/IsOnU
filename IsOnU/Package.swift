@@ -7,12 +7,11 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [.iOS(.v17)],
     products: [
-        .library(name: "AnonymousClient", targets: ["AnonymousClient"]),
+        .library(name: "AuthClient", targets: ["AuthClient"]),
         .library(name: "Assets", targets: ["Assets"]),
         .library(name: "Audience", targets: ["Audience"]),
         .library(name: "FirebaseError", targets: ["FirebaseError"]),
         .library(name: "FirestoreClient", targets: ["FirestoreClient"]),
-        .library(name: "Infrastructure", targets: ["Infrastructure"]),
         .library(name: "IsOnU", targets: ["IsOnU"]),
         .library(name: "Member", targets: ["Member"]),
         .library(name: "Models", targets: ["Models"]),
@@ -29,7 +28,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "AnonymousClient",
+            name: "AuthClient",
             dependencies: [
                 "FirebaseError",
                 .dependencies,
@@ -53,28 +52,16 @@ let package = Package(
         .target(
             name: "FirebaseError",
             dependencies: [
-                .firebaseFirestore,
-                .dependencies,
-                .composableArchitecture,
+                .firebaseAuth,
             ]
         ),
         .target(
             name: "FirestoreClient",
             dependencies: [
                 "Models",
-                .firebaseFirestore,
                 .dependencies,
-                .composableArchitecture,
-            ]
-        ),
-        .target(
-            name: "Infrastructure",
-            dependencies: [
-                "Models",
-                "FirestoreClient",
                 .firebaseFirestore,
                 .firebaseFirestoreSwift,
-                .dependencies,
             ]
         ),
         .target(
@@ -94,6 +81,7 @@ let package = Package(
         .target(
             name: "IsOnU",
             dependencies: [
+                "AuthClient",
                 "Assets",
                 "Audience",
                 "Member",
@@ -115,6 +103,7 @@ let package = Package(
             dependencies: [
                 "Assets",
                 "Models",
+                "FirestoreClient",
                 "ViewComponents",
                 .composableArchitecture,
             ]

@@ -8,7 +8,7 @@ public struct User: Identifiable, Equatable, Codable {
     }
 }
 
-public enum UserProperty: Equatable, Codable {
+public enum UserProperty: String, Equatable, Codable {
     case audience, member, speaker
 }
 

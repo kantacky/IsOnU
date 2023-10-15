@@ -17,7 +17,6 @@ public struct RoomRegistrationReducer: Reducer {
     public enum Action: Equatable {
         case onThemeColorChanged(ThemeColor)
         case onCreateRoomButtonTapped
-        case createRoomResult(TaskResult<Void>)
         case roomSettings(PresentationAction<RoomSettingsReducer.Action>)
     }
 
@@ -39,19 +38,14 @@ public struct RoomRegistrationReducer: Reducer {
                 let room: Room = .init(speaker: .example0, themeColor: state.themeColor)
                 state.roomSettings = .init(room: room)
                 return .run { send in
-                    await send(.createRoomResult(TaskResult {
+                    do {
                         try await self.firestoreClient.createRoom(room)
-                    }))
-                }
-
-            case .createRoomResult(.success):
-                return .none
-
-            case .createRoomResult(.failure(error)):
+                    } catch {
 #if DEBUG
-                print(error.localizedDescription)
+                        print(error.localizedDescription)
 #endif
-                return .none
+                    }
+                }
 
             case .roomSettings:
                 return .none

@@ -19,7 +19,7 @@ public struct RoomMemberView: View {
 
 #Preview {
     RoomMemberView(store: Store(
-        initialState: RoomMemberView.Reducer.State(),
+        initialState: RoomMemberView.Reducer.State(room: .example0),
         reducer: { RoomMemberView.Reducer() }
     ))
 }

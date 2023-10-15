@@ -1,3 +1,4 @@
+import AuthClient
 import Audience
 import ComposableArchitecture
 import FirestoreClient
@@ -20,6 +21,7 @@ public struct CoreReducer: Reducer {
 
     // MARK: - Action
     public enum Action: Equatable {
+        case onAppear
         case onOpenURL(URL)
         case getRoomResponse(TaskResult<Room>, UserProperty)
         case speaker(SpeakerReducer.Action)
@@ -28,6 +30,8 @@ public struct CoreReducer: Reducer {
     }
 
     // MARK: - Dependencies
+    @Dependency(\.authClient)
+    private var authClient
     @Dependency(\.firestoreClient)
     private var firestoreClient
 
@@ -37,6 +41,18 @@ public struct CoreReducer: Reducer {
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                return .run { send in
+                    do {
+                        let userId = try await self.authClient.signinAnonymously()
+                        UserDefaults.standard.setValue(userId, forKey: "userId")
+                    } catch {
+                        #if DEBUG
+                        print(error.localizedDescription)
+                        #endif
+                    }
+                }
+
             case let .onOpenURL(url):
                 guard let urlComponents: URLComponents = .init(url: url, resolvingAgainstBaseURL: true) else {
                     return .none
@@ -59,6 +75,12 @@ public struct CoreReducer: Reducer {
                 switch userProperty {
                 case .audience:
                     state = .audience(.init())
+                    return .run { send in
+                        do {
+                            guard let userId = UserDefaults.standard.string(forKey: "userId") else { return }
+                            try await self.firestoreClient.addUser(room.id, .audience, .init(uuidString: userId)!)
+                        }
+                    }
 
                 case .member:
                     state = .member(.init(state: .inRoom(.init(room: room))))
