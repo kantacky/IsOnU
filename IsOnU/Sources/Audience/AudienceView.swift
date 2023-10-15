@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import SwiftUI
+import ViewComponents
 
 public struct AudienceView: View {
     public typealias Reducer = AudienceReducer
@@ -12,13 +13,23 @@ public struct AudienceView: View {
     }
 
     public var body: some View {
-        Text("Audience")
+        SwitchStore(self.store) { state in
+            switch state {
+            case .inRoom:
+                CaseLet(/Reducer.State.inRoom, action: Reducer.Action.inRoom) { store in
+                    RoomAudienceView(store: store)
+                }
+
+            case .expired:
+                ExpiredView()
+            }
+        }
     }
 }
 
 #Preview {
     AudienceView(store: Store(
-        initialState: AudienceView.Reducer.State(),
+        initialState: AudienceView.Reducer.State(state: .inRoom(.init(room: .example0))),
         reducer: { AudienceView.Reducer() }
     ))
 }

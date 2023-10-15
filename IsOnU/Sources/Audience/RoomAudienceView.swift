@@ -1,10 +1,9 @@
-import Assets
 import ComposableArchitecture
 import SwiftUI
 import ViewComponents
 
-public struct RoomMemberView: View {
-    public typealias Reducer = RoomMemberReducer
+public struct RoomAudienceView: View {
+    public typealias Reducer = RoomAudienceReducer
     private let store: StoreOf<Reducer>
     @StateObject private var viewStore: ViewStoreOf<Reducer>
 
@@ -18,15 +17,13 @@ public struct RoomMemberView: View {
             ReactionPicker()
 
             // TODO: Reactions
-
-            TimerDisplay(seconds: self.viewStore.room.timerSeconds, color: self.viewStore.room.themeColor?.color ?? ColorAssets.pink)
         }
     }
 }
 
 #Preview {
-    RoomMemberView(store: Store(
-        initialState: RoomMemberView.Reducer.State(room: .example0),
-        reducer: { RoomMemberView.Reducer() }
+    RoomAudienceView(store: Store(
+        initialState: RoomAudienceView.Reducer.State(room: .example0),
+        reducer: { RoomAudienceView.Reducer() }
     ))
 }

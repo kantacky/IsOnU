@@ -2,12 +2,19 @@ import ComposableArchitecture
 
 public struct AudienceReducer: Reducer {
     // MARK: - State
-    public struct State: Equatable {
-        public init() {}
+    public enum State: Equatable {
+        case inRoom(RoomAudienceReducer.State)
+        case expired
+
+        public init(state: Self) {
+            self = state
+        }
     }
 
     // MARK: - Action
-    public enum Action: Equatable {}
+    public enum Action: Equatable {
+        case inRoom(RoomAudienceReducer.Action)
+    }
 
     // MARK: - Dependencies
 
@@ -16,7 +23,13 @@ public struct AudienceReducer: Reducer {
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         Reduce { state, action in
-            switch action {}
+            switch action {
+            case .inRoom:
+                return .none
+            }
+        }
+        .ifCaseLet(/State.inRoom, action: /Action.inRoom) {
+            RoomAudienceReducer()
         }
     }
 }

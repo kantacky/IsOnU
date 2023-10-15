@@ -74,7 +74,7 @@ public struct CoreReducer: Reducer {
             case let .getRoomResponse(.success(room), userProperty):
                 switch userProperty {
                 case .audience:
-                    state = .audience(.init())
+                    state = .audience(.init(state: .inRoom(.init(room: room))))
                     return .run { send in
                         do {
                             guard let userId = UserDefaults.standard.string(forKey: "userId") else { return }
@@ -96,7 +96,7 @@ public struct CoreReducer: Reducer {
 #endif
                 switch userProperty {
                 case .audience:
-                    state = .audience(.init())
+                    state = .audience(.init(state: .expired))
 
                 case .member:
                     state = .member(.init(state: .expired))
