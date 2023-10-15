@@ -27,9 +27,11 @@ public struct MemberView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     MemberView(store: Store(
         initialState: MemberView.Reducer.State(state: .inRoom(.init(room: .example0))),
         reducer: { MemberView.Reducer() }
     ))
 }
+#endif

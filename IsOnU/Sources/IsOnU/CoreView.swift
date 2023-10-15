@@ -53,9 +53,11 @@ struct CoreView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     CoreView(store: Store(
         initialState: CoreView.Reducer.State(),
         reducer: { CoreView.Reducer() }
     ))
 }
+#endif

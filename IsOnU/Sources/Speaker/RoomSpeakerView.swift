@@ -49,9 +49,11 @@ public struct RoomSpeakerView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     RoomSpeakerView(store: Store(
         initialState: RoomSpeakerView.Reducer.State(room: .example0),
         reducer: { RoomSpeakerView.Reducer() }
     ))
 }
+#endif

@@ -27,9 +27,11 @@ public struct RoomAudienceView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     RoomAudienceView(store: Store(
         initialState: RoomAudienceView.Reducer.State(room: .example0),
         reducer: { RoomAudienceView.Reducer() }
     ))
 }
+#endif

@@ -30,6 +30,8 @@ public struct TimerDisplay: View {
     }
 }
 
+#if DEBUG
 #Preview {
     TimerDisplay(seconds: 60 * 15, color: ColorAssets.pink)
 }
+#endif

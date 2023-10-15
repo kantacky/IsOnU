@@ -64,6 +64,8 @@ public struct ReactionPicker: View {
     }
 }
 
+#if DEBUG
 #Preview {
     ReactionPicker()
 }
+#endif

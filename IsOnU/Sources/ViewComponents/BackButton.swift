@@ -20,8 +20,10 @@ public struct BackButton: View {
     }
 }
 
+#if DEBUG
 #Preview {
     BackButton {
         print("Tapped")
     }
 }
+#endif

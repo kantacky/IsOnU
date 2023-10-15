@@ -2,7 +2,6 @@ import Dependencies
 import FirebaseCore
 import FirebaseFirestore
 import Models
-import ComposableArchitecture
 
 public struct FirestoreClient {
     public var getRoom: @Sendable (_ roomId: UUID) async throws -> Room

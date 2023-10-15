@@ -30,9 +30,11 @@ public struct RoomMemberView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     RoomMemberView(store: Store(
         initialState: RoomMemberView.Reducer.State(room: .example0),
         reducer: { RoomMemberView.Reducer() }
     ))
 }
+#endif

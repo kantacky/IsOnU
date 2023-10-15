@@ -41,6 +41,7 @@ public struct OriginalButton: View {
     }
 }
 
+#if DEBUG
 #Preview {
     VStack(spacing: 21) {
         OriginalButton("Primary Button", color: ColorAssets.primaryButtonBackground) {
@@ -57,3 +58,4 @@ public struct OriginalButton: View {
     }
     .frame(maxWidth: 300)
 }
+#endif

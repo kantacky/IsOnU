@@ -18,6 +18,8 @@ public struct ExpiredView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     ExpiredView()
 }
+#endif

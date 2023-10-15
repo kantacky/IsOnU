@@ -16,9 +16,11 @@ public struct SpeakerView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     SpeakerView(store: Store(
         initialState: SpeakerView.Reducer.State(),
         reducer: { SpeakerView.Reducer() }
     ))
 }
+#endif

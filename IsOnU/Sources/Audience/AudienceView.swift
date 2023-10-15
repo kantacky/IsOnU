@@ -27,10 +27,11 @@ public struct AudienceView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     AudienceView(store: Store(
         initialState: AudienceView.Reducer.State(state: .inRoom(.init(room: .example0))),
         reducer: { AudienceView.Reducer() }
     ))
 }
-
+#endif

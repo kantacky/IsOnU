@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Foundation
 import FirestoreClient
 import Models
 
@@ -35,7 +36,10 @@ public struct RoomRegistrationReducer: Reducer {
                 return .none
 
             case .onCreateRoomButtonTapped:
-                let room: Room = .init(speaker: .example0, themeColor: state.themeColor)
+                guard let userId: String = UserDefaults.standard.string(forKey: "userId") else {
+                    return .none
+                }
+                let room: Room = .init(speaker: User(id: userId), themeColor: state.themeColor)
                 state.roomSettings = .init(room: room)
                 return .run { send in
                     do {

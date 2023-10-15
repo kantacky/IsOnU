@@ -73,9 +73,11 @@ public struct RoomSettingsView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     RoomSettingsView(store: Store(
         initialState: RoomSettingsView.Reducer.State(room: .example0),
         reducer: { RoomSettingsView.Reducer() }
     ))
 }
+#endif

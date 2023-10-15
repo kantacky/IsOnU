@@ -50,10 +50,11 @@ public struct RoomRegistrationView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     RoomRegistrationView(store: Store(
         initialState: RoomRegistrationView.Reducer.State(),
         reducer: { RoomRegistrationView.Reducer() }
     ))
 }
-
+#endif

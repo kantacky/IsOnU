@@ -31,6 +31,7 @@ public struct ThemeColorBall: View {
     }
 }
 
+#if DEBUG
 #Preview {
     HStack(spacing: 47) {
         ThemeColorBall(.yellow)
@@ -38,3 +39,4 @@ public struct ThemeColorBall: View {
         ThemeColorBall(.blue)
     }
 }
+#endif

@@ -57,6 +57,8 @@ public struct TimerTimePicker: View {
     }
 }
 
+#if DEBUG
 #Preview {
     TimerTimePicker(minutes: .constant(15), color: ColorAssets.pink)
 }
+#endif
