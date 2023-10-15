@@ -1,9 +1,10 @@
+import Dependencies
 import Foundation
 import FirebaseAuth
 import FirebaseError
 
-public extension AnonymousClient {
-    static let live: AnonymousClient = Self(
+public extension AuthClient {
+    static let live: Self = .init(
         signinAnonymously: {
             try await withCheckedThrowingContinuation { continuation in
                 Auth.auth().signInAnonymously { authResult, error in
@@ -16,4 +17,8 @@ public extension AnonymousClient {
             }
         }
     )
+}
+
+extension AuthClient: DependencyKey {
+    public static let liveValue: Self = .live
 }

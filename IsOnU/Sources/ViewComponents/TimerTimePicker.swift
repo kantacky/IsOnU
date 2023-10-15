@@ -2,14 +2,16 @@ import Assets
 import SwiftUI
 
 public struct TimerTimePicker: View {
-    @State private var minutes: Int
+    @Binding private var minutes: Int
+    private let color: Color
     @State private var offsetY: CGFloat
     @State private var previousOffsetY: CGFloat
 
-    public init(minutes: Int) {
-        self.minutes = minutes
-        self.offsetY = CGFloat(64 * (50 - minutes) - 32)
-        self.previousOffsetY = CGFloat(64 * (50 - minutes) - 32)
+    public init(minutes: Binding<Int>, color: Color) {
+        self._minutes = minutes
+        self.color = color
+        self.offsetY = CGFloat(64 * (50 - minutes.wrappedValue) - 32)
+        self.previousOffsetY = CGFloat(64 * (50 - minutes.wrappedValue) - 32)
     }
 
     public var body: some View {
@@ -21,8 +23,9 @@ public struct TimerTimePicker: View {
                         Text(":")
                         Text("00")
                     }
-                    .foregroundStyle(n == self.minutes ? ColorAssets.primaryFont : ColorAssets.secondaryFont)
+                    .foregroundStyle(n == self.minutes ? self.color : ColorAssets.secondaryFont)
                     .font(.system(size: 50))
+                    .bold(n == self.minutes)
                     .frame(height: 64)
                 }
             }
@@ -55,5 +58,5 @@ public struct TimerTimePicker: View {
 }
 
 #Preview {
-    TimerTimePicker(minutes: 15)
+    TimerTimePicker(minutes: .constant(15), color: ColorAssets.pink)
 }

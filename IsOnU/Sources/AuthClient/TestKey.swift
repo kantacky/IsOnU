@@ -1,8 +1,8 @@
 import Foundation
 import Dependencies
 
-extension AnonymousClient: TestDependencyKey {
-    public static let testValue: AnonymousClient = Self(
+extension AuthClient: TestDependencyKey {
+    public static let testValue: Self = .init(
         signinAnonymously: unimplemented("signinAnonymously")
     )
 }

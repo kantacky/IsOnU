@@ -36,19 +36,15 @@ public struct ReactionPicker: View {
                     .shadow(radius: 30)
 
                 ForEach(0..<self.numberOfReactions) { i in
-                    ZStack {
-                        Reaction.allCases[i % Reaction.allCases.count].image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: self.selectedReactionIndex == i ? 120 : 60)
-
-                        Text("\(i)")
-                    }
-                    .rotationEffect(Angle(radians: CGFloat.pi / 2 - self.rotationAngle))
-                    .offset(
-                        x: self.circleRadius * cos(self.twoTimesPi / CGFloat(self.numberOfReactions) * CGFloat(i)),
-                        y: self.circleRadius * sin(self.twoTimesPi / CGFloat(self.numberOfReactions) * CGFloat(i))
-                    )
+                    Reaction.allCases[i % Reaction.allCases.count].image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: self.selectedReactionIndex == i ? 120 : 60)
+                        .rotationEffect(Angle(radians: CGFloat.pi / 2 - self.rotationAngle))
+                        .offset(
+                            x: self.circleRadius * cos(self.twoTimesPi / CGFloat(self.numberOfReactions) * CGFloat(i)),
+                            y: self.circleRadius * sin(self.twoTimesPi / CGFloat(self.numberOfReactions) * CGFloat(i))
+                        )
                 }
             }
             .rotationEffect(Angle(radians: self.rotationAngle - CGFloat.pi / CGFloat(2)))
@@ -58,7 +54,6 @@ public struct ReactionPicker: View {
                     .onChanged { value in
                         self.rotationAngle = self.previousRotationAngle + value.translation.width * 0.01
                         self.selectedReactionIndex = (self.selectedReactionIndex + Int((self.previousRotationAngle - self.rotationAngle) / aAngle) + self.numberOfReactions) % self.numberOfReactions
-                        print(self.selectedReactionIndex)
                     }
                     .onEnded { value in
                         self.rotationAngle = -CGFloat(self.selectedReactionIndex) * aAngle

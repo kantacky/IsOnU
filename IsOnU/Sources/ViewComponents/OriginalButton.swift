@@ -4,18 +4,18 @@ import SwiftUI
 public struct OriginalButton: View {
     private let labelText: String
     private let labelImage: Image?
-    private let buttonStyle: OriginalButtonStyle
+    private let color: Color
     private var action: () -> Void
 
     public init(
         _ labelText: String,
         labelImage: Image? = nil,
-        buttonStyle: OriginalButtonStyle = .primary,
+        color: Color,
         action: @escaping () -> Void
     ) {
         self.labelText = labelText
         self.labelImage = labelImage
-        self.buttonStyle = buttonStyle
+        self.color = color
         self.action = action
     }
 
@@ -35,38 +35,23 @@ public struct OriginalButton: View {
             .frame(maxWidth: .infinity, maxHeight: 60)
         }
         .foregroundStyle(ColorAssets.buttonFont)
-        .background(self.buttonStyle.background)
+        .background(self.color)
         .clipShape(Capsule())
         .shadow(color: ColorAssets.shadow, radius: 4, x: 0, y: 4)
     }
 }
 
-public enum OriginalButtonStyle {
-    case primary
-    case secondary
-
-    var background: Color {
-        switch self {
-        case .primary:
-            return ColorAssets.primaryButtonBackground
-
-        case .secondary:
-            return ColorAssets.secondaryButtonBackground
-        }
-    }
-}
-
 #Preview {
     VStack(spacing: 21) {
-        OriginalButton("Primary Button") {
+        OriginalButton("Primary Button", color: ColorAssets.primaryButtonBackground) {
             print("Tapped Primary Button")
         }
 
-        OriginalButton("メンバー", labelImage: Image(systemName: "link"), buttonStyle: .secondary) {
+        OriginalButton("メンバー", labelImage: Image(systemName: "link"), color: ColorAssets.pink) {
             print("Tapped Secondary Button")
         }
 
-        OriginalButton("オーディエンス", labelImage: Image(systemName: "link"), buttonStyle: .secondary) {
+        OriginalButton("オーディエンス", labelImage: Image(systemName: "link"), color: ColorAssets.pink) {
             print("Tapped Secondary Button")
         }
     }

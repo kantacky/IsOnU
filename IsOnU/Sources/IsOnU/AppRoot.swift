@@ -8,6 +8,7 @@ public struct AppRoot: App {
     public init() {
         FirebaseApp.configure(options: .init(contentsOfFile: Bundle.module.path(forResource: "GoogleService-Info", ofType: "plist")!)!)
         self.store = Store(initialState: CoreReducer.State(), reducer: { CoreReducer() })
+
     }
 
     public var body: some Scene {

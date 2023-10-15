@@ -1,8 +1,7 @@
 import Foundation
 import Dependencies
-import ComposableArchitecture
 
-public struct AnonymousClient {
+public struct AuthClient {
     public var signinAnonymously: @Sendable () async throws -> String
 
     public init(
@@ -14,9 +13,9 @@ public struct AnonymousClient {
 }
 
 public extension DependencyValues {
-    var authClient: AnonymousClient {
-        get { self[AnonymousClient.self] }
-        set { self[AnonymousClient.self] = newValue }
+    var authClient: AuthClient {
+        get { self[AuthClient.self] }
+        set { self[AuthClient.self] = newValue }
     }
 }
 
