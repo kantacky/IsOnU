@@ -47,9 +47,9 @@ public struct CoreReducer: Reducer {
                         let userId = try await self.authClient.signinAnonymously()
                         UserDefaults.standard.setValue(userId, forKey: "userId")
                     } catch {
-                        #if DEBUG
+#if DEBUG
                         print(error.localizedDescription)
-                        #endif
+#endif
                     }
                 }
 
@@ -78,12 +78,26 @@ public struct CoreReducer: Reducer {
                     return .run { send in
                         do {
                             guard let userId = UserDefaults.standard.string(forKey: "userId") else { return }
-                            try await self.firestoreClient.addUser(room.id, .audience, .init(uuidString: userId)!)
+                            try await self.firestoreClient.addUser(room.id, .audience, userId)
+                        } catch {
+#if DEBUG
+                            print(error.localizedDescription)
+#endif
                         }
                     }
 
                 case .member:
                     state = .member(.init(state: .inRoom(.init(room: room))))
+                    return .run { send in
+                        do {
+                            guard let userId = UserDefaults.standard.string(forKey: "userId") else { return }
+                            try await self.firestoreClient.addUser(room.id, .member, userId)
+                        } catch {
+#if DEBUG
+                            print(error.localizedDescription)
+#endif
+                        }
+                    }
 
                 default:
                     break

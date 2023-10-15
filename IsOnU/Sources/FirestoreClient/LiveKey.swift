@@ -14,7 +14,7 @@ public extension FirestoreClient {
             try Firestore.firestore().collection("rooms").document(room.id.uuidString).setData(from: room)
         },
         addUser: { roomId, userProperty, userId in
-            try Firestore.firestore().collection("rooms").document(roomId.uuidString).collection(userProperty.rawValue).addDocument(from: User(id: userId))
+            try Firestore.firestore().collection("rooms").document(roomId.uuidString).updateData([userProperty.collectionName: FieldValue.arrayUnion([userId])])
         }
     )
 }
