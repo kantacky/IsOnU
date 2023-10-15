@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import FirestoreClient
 
 public struct SpeakerReducer: Reducer {
     // MARK: - State
@@ -16,6 +17,8 @@ public struct SpeakerReducer: Reducer {
     }
 
     // MARK: - Dependencies
+    @Dependency(\.firestoreClient)
+    private var firestoreClient
 
     public init() {}
 
@@ -27,6 +30,10 @@ public struct SpeakerReducer: Reducer {
 
         Reduce { state, action in
             switch action {
+            case let .roomRegistration(.roomSettings(.presented(.roomSpeaker(.presented(.onEndTheRoomButtonTapped(room)))))):
+                // TODO: DELETE THE ROOM
+                return .none
+
             case .roomRegistration:
                 return .none
             }

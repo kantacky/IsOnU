@@ -30,7 +30,15 @@ public struct RoomSpeakerView: View {
 
             // TODO: Reactions
 
-            TimerDisplay(seconds: self.viewStore.room.timerSeconds, color: self.viewStore.room.themeColor?.color ?? ColorAssets.pink)
+            VStack {
+                TimerDisplay(seconds: self.viewStore.room.timerSeconds, color: self.viewStore.room.themeColor?.color ?? ColorAssets.pink)
+
+                if self.viewStore.room.timerSeconds < 1 {
+                    OriginalButton("ルームを終了する", color: self.viewStore.room.themeColor?.color ?? ColorAssets.pink) {
+                        self.viewStore.send(.onEndTheRoomButtonTapped(self.viewStore.room))
+                    }
+                }
+            }
         }
         .onAppear {
             self.viewStore.send(.onAppear)

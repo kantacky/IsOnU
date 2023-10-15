@@ -29,8 +29,6 @@ public struct TimerTimePicker: View {
                     .frame(height: 64)
                 }
             }
-//            .frame(maxWidth: .infinity, maxHeight: 300)
-//            .clipShape(Rectangle())
             .offset(y: offsetY)
             .gesture(
                 DragGesture()

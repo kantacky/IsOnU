@@ -67,7 +67,7 @@ public struct CoreReducer: Reducer {
 
                 return .run { send in
                     await send(.getRoomResponse(TaskResult {
-                        try await self.firestoreClient.getRoomData(roomId)
+                        try await self.firestoreClient.getRoom(.init(uuidString: roomId)!)
                     }, userProperty))
                 }
 
