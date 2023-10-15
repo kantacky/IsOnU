@@ -35,6 +35,9 @@ struct CoreView: View {
                 }
             }
         }
+        .onAppear {
+            self.viewStore.send(.onAppear)
+        }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(ColorAssets.background)
         .foregroundStyle(ColorAssets.primaryFont)

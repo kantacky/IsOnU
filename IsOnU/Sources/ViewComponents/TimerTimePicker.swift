@@ -29,7 +29,8 @@ public struct TimerTimePicker: View {
                     .frame(height: 64)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: 300)
+//            .frame(maxWidth: .infinity, maxHeight: 300)
+//            .clipShape(Rectangle())
             .offset(y: offsetY)
             .gesture(
                 DragGesture()
@@ -50,7 +51,7 @@ public struct TimerTimePicker: View {
 //                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
 //                    .foregroundStyle(ColorAssets.background)
 //
-//                RoundedRectangle(cornerRadius: 40)
+//                Rectangle()
 //                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
 //                    .foregroundStyle(ColorAssets.background)
 //            }

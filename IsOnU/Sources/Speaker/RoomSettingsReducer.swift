@@ -39,6 +39,10 @@ public struct RoomSettingsReducer: Reducer {
                 state.roomSpeaker = .init(room: state.room)
                 return .none
 
+            case .roomSpeaker(.presented(.onBackButtonTapped)):
+                state.roomSpeaker = nil
+                return .none
+
             case .roomSpeaker:
                 return .none
             }

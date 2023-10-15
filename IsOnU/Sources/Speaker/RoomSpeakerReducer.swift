@@ -16,6 +16,7 @@ public struct RoomSpeakerReducer: Reducer {
         case onAppear
         case onDisappear
         case decrementTimerSeconds
+        case onBackButtonTapped
     }
 
     // MARK: - Dependencies
@@ -44,6 +45,9 @@ public struct RoomSpeakerReducer: Reducer {
 
             case .decrementTimerSeconds:
                 state.room.timerSeconds -= 1
+                return .none
+
+            case .onBackButtonTapped:
                 return .none
             }
         }

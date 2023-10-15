@@ -15,6 +15,18 @@ public struct RoomSpeakerView: View {
 
     public var body: some View {
         ZStack {
+            VStack {
+                HStack {
+                    BackButton {
+                        self.viewStore.send(.onBackButtonTapped)
+                    }
+
+                    Spacer()
+                }
+
+                Spacer()
+            }
+
             // TODO: Reactions
 
             TimerDisplay(seconds: self.viewStore.room.timerSeconds, color: self.viewStore.room.themeColor?.color ?? ColorAssets.pink)

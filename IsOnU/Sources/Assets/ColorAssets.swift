@@ -7,6 +7,7 @@ public enum ColorAssets {
     public static let buttonFont: Color = Color(.white)
     public static let primaryButtonBackground: Color = Color(.gray1)
     public static let secondaryButtonBackground: Color = Color(.pink)
+    public static let backButton: Color = Color(.accentBlue)
     public static let shadow: Color = Color(.shadow)
     public static let blue: Color = Color(.blue)
     public static let pink: Color = Color(.pink)
