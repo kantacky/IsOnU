@@ -15,7 +15,7 @@ public struct TimerTimePicker: View {
     }
 
     public var body: some View {
-//        ZStack {
+        ZStack {
             VStack(spacing: 0) {
                 ForEach(0..<100) { n in
                     HStack {
@@ -44,16 +44,16 @@ public struct TimerTimePicker: View {
                     }
             )
 
-//            VStack(spacing: 120) {
-//                Rectangle()
-//                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
-//                    .foregroundStyle(ColorAssets.background)
-//
-//                Rectangle()
-//                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
-//                    .foregroundStyle(ColorAssets.background)
-//            }
-//        }
+            VStack(spacing: 120) {
+                Rectangle()
+                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
+                    .foregroundStyle(ColorAssets.background)
+
+                Rectangle()
+                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
+                    .foregroundStyle(ColorAssets.background)
+            }
+        }
     }
 }
 

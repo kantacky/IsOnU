@@ -18,6 +18,12 @@ public struct RoomAudienceView: View {
 
             // TODO: Reactions
         }
+        .onAppear {
+            self.viewStore.send(.onAppear)
+        }
+        .onDisappear {
+            self.viewStore.send(.onDisappear)
+        }
     }
 }
 

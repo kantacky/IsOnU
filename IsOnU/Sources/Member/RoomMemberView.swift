@@ -21,6 +21,12 @@ public struct RoomMemberView: View {
 
             TimerDisplay(seconds: self.viewStore.room.timerSeconds, color: self.viewStore.room.themeColor?.color ?? ColorAssets.pink)
         }
+        .onAppear {
+            self.viewStore.send(.onAppear)
+        }
+        .onDisappear {
+            self.viewStore.send(.onDisappear)
+        }
     }
 }
 
