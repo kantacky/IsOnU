@@ -20,6 +20,7 @@ public struct RoomSpeakerView: View {
                     BackButton {
                         self.viewStore.send(.onBackButtonTapped)
                     }
+                    .padding()
 
                     Spacer()
                 }
