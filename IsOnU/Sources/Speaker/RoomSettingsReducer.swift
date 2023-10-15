@@ -6,6 +6,7 @@ public struct RoomSettingsReducer: Reducer {
     public struct State: Equatable {
         var room: Room
         var timerMinutes: Int
+        @PresentationState var roomSpeaker: RoomSpeakerReducer.State?
 
         public init(room: Room) {
             self.room = room
@@ -17,6 +18,7 @@ public struct RoomSettingsReducer: Reducer {
     public enum Action: Equatable {
         case onTimerMinutesChanged(Int)
         case onStartButtonTapped
+        case roomSpeaker(PresentationAction<RoomSpeakerReducer.Action>)
     }
 
     // MARK: - Dependencies
@@ -33,8 +35,16 @@ public struct RoomSettingsReducer: Reducer {
                 return .none
 
             case .onStartButtonTapped:
+                state.room.timerStartedAt = .now
+                state.roomSpeaker = .init(room: state.room)
+                return .none
+
+            case .roomSpeaker:
                 return .none
             }
+        }
+        .ifLet(\.$roomSpeaker, action: /Action.roomSpeaker) {
+            RoomSpeakerReducer()
         }
     }
 }

@@ -18,8 +18,8 @@ public extension FirestoreClient {
         createRoom: { room in
             try Firestore.firestore().collection("Rooms").addDocument(from: room)
         },
-        addUser: { roomID, user in
-            try Firestore.firestore().collection(roomID).addDocument(from: user)
+        addUser: { addUserParams in
+            try Firestore.firestore().collection(addUserParams.roomId).addDocument(from: addUserParams.user)
         },
         getRoomData: { room in
             try await Firestore.firestore().collection("Rooms").document(room).getDocument(as: Room.self)

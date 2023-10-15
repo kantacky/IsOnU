@@ -113,6 +113,7 @@ let package = Package(
         .target(
             name: "Speaker",
             dependencies: [
+                "Assets",
                 "Models",
                 "ViewComponents",
                 .composableArchitecture,

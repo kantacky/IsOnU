@@ -1,6 +1,8 @@
 import Audience
 import ComposableArchitecture
+import FirestoreClient
 import Foundation
+import Models
 import Member
 import Speaker
 
@@ -19,12 +21,15 @@ public struct CoreReducer: Reducer {
     // MARK: - Action
     public enum Action: Equatable {
         case onOpenURL(URL)
+        case getRoomResponse(TaskResult<Room>, UserProperty)
         case speaker(SpeakerReducer.Action)
         case member(MemberReducer.Action)
         case audience(AudienceReducer.Action)
     }
 
     // MARK: - Dependencies
+    @Dependency(\.firestoreClient)
+    private var firestoreClient
 
     public init() {}
 
@@ -33,7 +38,50 @@ public struct CoreReducer: Reducer {
         Reduce { state, action in
             switch action {
             case let .onOpenURL(url):
-                state = .audience(.init())
+                guard let urlComponents: URLComponents = .init(url: url, resolvingAgainstBaseURL: true) else {
+                    return .none
+                }
+                guard let roomId = url.pathComponents.last else {
+                    return .none
+                }
+                guard let isAs = urlComponents.queryItems?.first?.value else {
+                    return .none
+                }
+                let userProperty: UserProperty = isAs == "member" ? .member : .audience
+
+                return .run { send in
+                    await send(.getRoomResponse(TaskResult {
+                        try await self.firestoreClient.getRoomData(roomId)
+                    }, userProperty))
+                }
+
+            case let .getRoomResponse(.success(room), userProperty):
+                switch userProperty {
+                case .audience:
+                    state = .audience(.init())
+
+                case .member:
+                    state = .member(.init(state: .inRoom(.init(room: room))))
+
+                default:
+                    break
+                }
+                return .none
+
+            case let .getRoomResponse(.failure(error), userProperty):
+#if DEBUG
+                print(error.localizedDescription)
+#endif
+                switch userProperty {
+                case .audience:
+                    state = .audience(.init())
+
+                case .member:
+                    state = .member(.init(state: .expired))
+
+                default:
+                    break
+                }
                 return .none
 
             case .speaker:

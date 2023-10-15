@@ -8,6 +8,10 @@ public struct User: Identifiable, Equatable, Codable {
     }
 }
 
+public enum UserProperty: Equatable, Codable {
+    case audience, member, speaker
+}
+
 #if DEBUG
 public extension User {
     static let example0: Self = .init(id: .init())

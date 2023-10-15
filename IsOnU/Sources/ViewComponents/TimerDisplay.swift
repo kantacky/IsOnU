@@ -3,9 +3,11 @@ import SwiftUI
 
 public struct TimerDisplay: View {
     private let seconds: Int
+    private let color: Color
 
-    public init(seconds: Int) {
+    public init(seconds: Int, color: Color) {
         self.seconds = seconds
+        self.color = color
     }
 
     public var body: some View {
@@ -24,10 +26,10 @@ public struct TimerDisplay: View {
         }
         .font(.system(size: 80, design: .monospaced))
         .bold()
-        .foregroundStyle(ColorAssets.pink)
+        .foregroundStyle(self.color)
     }
 }
 
 #Preview {
-    TimerDisplay(seconds: 60 * 15)
+    TimerDisplay(seconds: 60 * 15, color: ColorAssets.pink)
 }

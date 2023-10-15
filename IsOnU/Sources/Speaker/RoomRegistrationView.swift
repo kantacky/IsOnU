@@ -1,3 +1,4 @@
+import Assets
 import ComposableArchitecture
 import Models
 import SwiftUI
@@ -14,7 +15,7 @@ public struct RoomRegistrationView: View {
     }
 
     public var body: some View {
-        IfLetStore(store.scope(state: \.$roomSettings, action: { .roomSettings($0) })) { store in
+        IfLetStore(self.store.scope(state: \.$roomSettings, action: { .roomSettings($0) })) { store in
             RoomSettingsView(store: store)
         } else: {
             ZStack {
@@ -36,7 +37,7 @@ public struct RoomRegistrationView: View {
                 VStack {
                     Spacer()
 
-                    OriginalButton("ルームをつくる") {
+                    OriginalButton("ルームをつくる", color: ColorAssets.primaryButtonBackground) {
                         self.viewStore.send(.onCreateRoomButtonTapped)
                     }
                     .frame(maxWidth: 300)

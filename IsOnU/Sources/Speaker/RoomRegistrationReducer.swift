@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import FirestoreClient
 import Models
 
 public struct RoomRegistrationReducer: Reducer {
@@ -16,10 +17,13 @@ public struct RoomRegistrationReducer: Reducer {
     public enum Action: Equatable {
         case onThemeColorChanged(ThemeColor)
         case onCreateRoomButtonTapped
+        case createRoomResult(TaskResult<Void>)
         case roomSettings(PresentationAction<RoomSettingsReducer.Action>)
     }
 
     // MARK: - Dependencies
+    @Dependency(\.firestoreClient)
+    private var firestoreClient
 
     public init() {}
 
@@ -32,7 +36,21 @@ public struct RoomRegistrationReducer: Reducer {
                 return .none
 
             case .onCreateRoomButtonTapped:
-                state.roomSettings = .init(room: .init(speaker: .example0))
+                let room: Room = .init(speaker: .example0, themeColor: state.themeColor)
+                state.roomSettings = .init(room: room)
+                return .run { send in
+                    await send(.createRoomResult(TaskResult {
+                        try await self.firestoreClient.createRoom(room)
+                    }))
+                }
+
+            case .createRoomResult(.success):
+                return .none
+
+            case .createRoomResult(.failure(error)):
+#if DEBUG
+                print(error.localizedDescription)
+#endif
                 return .none
 
             case .roomSettings:

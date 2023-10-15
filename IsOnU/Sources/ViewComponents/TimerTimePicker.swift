@@ -3,17 +3,19 @@ import SwiftUI
 
 public struct TimerTimePicker: View {
     @Binding private var minutes: Int
+    private let color: Color
     @State private var offsetY: CGFloat
     @State private var previousOffsetY: CGFloat
 
-    public init(minutes: Binding<Int>) {
+    public init(minutes: Binding<Int>, color: Color) {
         self._minutes = minutes
+        self.color = color
         self.offsetY = CGFloat(64 * (50 - minutes.wrappedValue) - 32)
         self.previousOffsetY = CGFloat(64 * (50 - minutes.wrappedValue) - 32)
     }
 
     public var body: some View {
-        ZStack {
+//        ZStack {
             VStack(spacing: 0) {
                 ForEach(0..<100) { n in
                     HStack {
@@ -21,12 +23,13 @@ public struct TimerTimePicker: View {
                         Text(":")
                         Text("00")
                     }
-                    .foregroundStyle(n == self.minutes ? ColorAssets.pink : ColorAssets.secondaryFont)
+                    .foregroundStyle(n == self.minutes ? self.color : ColorAssets.secondaryFont)
                     .font(.system(size: 50))
                     .bold(n == self.minutes)
                     .frame(height: 64)
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: 300)
             .offset(y: offsetY)
             .gesture(
                 DragGesture()
@@ -42,19 +45,19 @@ public struct TimerTimePicker: View {
                     }
             )
 
-            VStack(spacing: 120) {
-                Rectangle()
-                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
-                    .foregroundStyle(ColorAssets.background)
-
-                Rectangle()
-                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
-                    .foregroundStyle(ColorAssets.background)
-            }
-        }
+//            VStack(spacing: 120) {
+//                Rectangle()
+//                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
+//                    .foregroundStyle(ColorAssets.background)
+//
+//                RoundedRectangle(cornerRadius: 40)
+//                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
+//                    .foregroundStyle(ColorAssets.background)
+//            }
+//        }
     }
 }
 
 #Preview {
-    TimerTimePicker(minutes: .constant(15))
+    TimerTimePicker(minutes: .constant(15), color: ColorAssets.pink)
 }
